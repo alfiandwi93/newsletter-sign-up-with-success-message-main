@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Frontend Mentor | Newsletter sign-up form with success message</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.2/css/bootstrap.min.css">
+    <style>
+      body {
+        background-color: #36384E;
+        font-family: "Roboto", sans-serif;
+      }
+
+      .list-style{
+        list-style-type: none; 
+        padding-left: 0px; 
+        margin-bottom: 20px; 
+        font-weight: 400;
+      }
+
+      .modal-icon {
+        list-style-type: none;
+        padding-left: 0px;
+        margin-left: 45px;
+        margin-bottom: 20px;
+      }
+
+      .modal-text {
+        margin-left: 45px;
+        margin-top: 15px;
+        max-width: 375px;
+        font-weight: 400;
+      }
+
+      .modal-title {
+        font-weight: 700;
+        margin-top: 10px;
+        margin-left: 45px;
+        margin-bottom: 25px;
+        font-size: 64px;
+        line-height: 65px;
+      }
+
+      .email-Input {
+        margin-bottom: 5px;
+      }
+
+      .li-mobile .icon {
+        margin-top: 12px;
+        margin-right: 10px;
+        margin-bottom: 10px;
+      }
+
+      .styupdt {
+        font-weight: 700;
+        font-size: 60px;
+        margin-bottom: 15px;
+        margin-top: 50px;
+      }
+
+      .container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+      }
+
+      .card {
+        width: 930px;
+        height: 640px;
+        border-radius: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        background-color: #ffffff;
+      }
+
+      .card-text {
+        padding-left: 65px;
+        padding-top: 0px;
+      }
+
+      .card-img {
+        max-width: 100%;
+        max-height: 600px;
+        object-fit: contain;
+        border-top-right-radius: none;
+        border-bottom-right-radius: none;
+        margin-top: 18px;
+        margin-left: 14px;
+      }
+
+      .btn-subscribe {
+        width: 375px;
+        height: 55px;
+        border-radius: 7px;
+        background-color: #242742;
+      }
+
+      .btn-subscribe:hover {
+        background: rgb(255, 82, 123);
+        background: linear-gradient(90deg, rgba(255, 82, 123, 1) 0%, rgba(255, 99, 77, 1) 100%);
+        border-color: none;
+        box-shadow: 0 19px 25px 1px rgba(255, 82, 123, 0.4);
+      }
+
+      .dismiss-btn {
+        width: 375px;
+        height: 60px;
+        border-radius: 7px;
+        font-size: 14px;
+        line-height: 1;
+        margin-top: 20px;
+        margin-left: 45px;
+        border-radius: 7px;
+        background-color: #242742;
+      }
+
+      .dismiss-btn:hover {
+        background: rgb(255, 82, 123);
+        background: linear-gradient(90deg, rgba(255, 82, 123, 1) 0%, rgba(255, 99, 77, 1) 100%);
+        border-color: none;
+        box-shadow: 0 19px 25px 1px rgba(255, 82, 123, 0.4);
+      }
+
+      .attribution {
+        font-size: 11px;
+        text-align: center;
+        color: #fff;
+        margin-top: 50px;
+        font-size: 16px;
+        font-weight: 700;
+      }
+
+      .attribution a {
+        color: #F9D949;
+      }
+
+      .modal-backdrop {
+        background-color: #36384E;
+        transition: opacity 0.2s ease;
+      }
+
+      .modal-backdrop.show {
+        opacity: 1;
+      }
+
+      .error-msg {
+        color: red;
+        margin-left: 128px;
+        font-size: 16px;
+        margin-top: 0px;
+        max-width: 150px;
+      }
+
+      .is-invalid {
+        background-color: #ffe9f4;
+      }
+
+      .modal-content {
+        width: 525px;
+        height: 525px;
+        background-color: #FFFFFF;
+        border-radius: 30px;
+        font-size: 16px;
+        margin-top: 9px;
+      }
+
+      @media (max-width: 992px) {
+        body {
+          background-color: white;
+        }
+
+        .container {
+          width: 100%;
+          padding-left: 0px;
+          padding-right: 0px;
+          background-color: transparent;
+        }
+
+        .card {
+          background-color: transparent;
+          padding-left: 0px;
+          margin-right: 0px;
+          box-shadow: none;
+          border-color: transparent;
+        }
+
+        .card-text {
+          text-align: left;
+          width: 100%;
+          background-color: transparent;
+        }
+
+        .card-img {
+          margin-left: 0;
+          margin-bottom: 20px;
+        }
+
+        .btn-subscribe,
+        .dismiss-btn {
+          width: 100%;
+        }
+
+        .modal-content {
+          width: 90%;
+          height: auto;
+          max-width: 525px;
+          padding: 30px;
+        }
+      }
+
+      @media (max-width: 576px) {
+        .modal {
+          background-color: #FFFFFF;
+        }
+
+        .modal-dialog {
+          background-color: transparent;
+          width: 100%;
+          height: 100%;
+          margin-left: 0px;
+          margin-top: 0px;
+        }
+
+        .container {
+          width: 100%;
+          background-color: transparent;
+        }
+
+        .img-mobile {
+          width: 100%;
+          height: 285px;
+          background-image: url(assets/images/illustration-sign-up-mobile.svg);
+          background-size: cover;
+          position: absolute;
+          top: 0;
+          left: 0;
+        }
+
+        .card {
+          width: 100%;
+          border-radius: 0;
+          margin-top: 541px;
+          margin-left: 20px;
+          margin-right: 20px;
+          padding-top: 15px;
+          background-color: transparent;
+        }
+
+        .card-text {
+          margin-top: 15px;
+          padding-left: 0px;
+        }
+
+        .card-img {
+          display: none;
+        }
+
+        .modal-content {
+          width: 100%;
+          height: 100%;
+          background-color: transparent;
+          border-radius: 0px;
+          margin-top: 0px;
+          padding: 0 0 0 0;
+        }
+
+        .styupdt {
+          font-weight: 700;
+          font-size: 43px;
+          margin-bottom: 15px;
+          margin-top: 0px;
+        }
+
+        .attribution {
+          display: none;
+          font-size: 11px;
+          text-align: center;
+          color: #fff;
+          margin-top: 50px;
+        }
+
+        .attribution a {
+          color: #F9D949;
+        }
+
+        .li-mobile {
+          display: flex;
+          align-items: flex-start;
+          margin-bottom: 10px;
+        }
+
+        .li-mobile .icon {
+          margin-top: 12px;
+          margin-right: 10px;
+          margin-bottom: 5px;
+        }
+
+        .li-mobile .text-mobile {
+          margin-top: 10px;
+        }
+
+        .error-msg {
+          border-radius: 0px;
+          margin-left: 80px;
+          text-align: right;
+          font-size: 16px;
+          margin-top: 0px;
+        }
+
+        .modal-title {
+          font-weight: 700;
+          margin-top: 10px;
+          margin-left: 10px;
+          margin-bottom: 35px;
+          font-size: 48px;
+          line-height: 45px;
+        }
+
+        .modal-text {
+          margin-left: 10px;
+          margin-top: 15px;
+          padding-right: 20px;
+          max-width: 375px;
+          font-weight: 400;
+        }
+
+        .modal-icon {
+          list-style-type: none;
+          padding-left: 0px;
+          margin-left: 10px;
+          margin-bottom: 40px;
+        }
+
+        .modal-body {
+          padding-top: 80px;
+          width: 100%;
+          height: auto;
+          background-color: transparent;
+        }
+
+        .dismiss-btn {
+          margin-top: 110px;
+          margin-right: 10px;
+          margin-left: 10px;
+          width: 315px;
+        }
+        .list-style{
+        list-style-type: none; 
+        padding-left: 0px; 
+        margin-bottom: 20px; 
+        font-weight: 400;
+        margin-bottom: 80px;
+      }
+      }
+
+    </style>
+  </head>
+  <body>
+
+    <!-- Modal -->
+    <div class="modal fade" id="subscribeModal" tabindex="-1" aria-labelledby="subscribeModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content" style="">
+          <div class="modal-body">
+            <ul style="" class="modal-icon">
+              <li style="">
+                <img src="assets/images/icon-success.svg" alt="Check Icon" class="icon" style="margin-top: 30px; margin-right: 10px; height: 65px; width: 65px;">
+              </li>
+            </ul>
+            <h1 class="modal-title" id="subscribeModalLabel" style="">Thanks for subscribing!</h1>
+            <p class="modal-text">A confirmation email has been sent to <strong>ash@loremcompany.com</strong>. Please open it and click the button inside to confirm your subscription. </p>
+            <button type="button" class="btn btn-primary dismiss-btn" data-bs-dismiss="modal" style="font-weight: 700;">Dismiss message</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="img-mobile" role="banner"></div>
+      <div class="card">
+        <main>
+          <div class="row no-gutters">
+            <div class="col-md-6 d-flex align-items-center justify-content-center">
+              <div class="card-text">
+                <h1 class="styupdt" style="color: #242742;">Stay updated!</h1>
+                <p style="color: #242742; margin-bottom: 20px;">Join 60,000+ product managers receiving monthly updates on:</p>
+                <ul class="list-style" role="list">
+                  <li class="li-mobile" role="listitem">
+                    <img src="assets/images/icon-list.svg" alt="Check Icon" class="icon" style="margin-right: 10px;">
+                    <span class="text-mobile">Product discovery and building what matters</span>
+                  </li>
+                  <li class="li-mobile" role="listitem">
+                    <img src="assets/images/icon-list.svg" alt="Check Icon" class="icon" style="margin-right: 10px;">
+                    <span class="text-mobile">Measuring to ensure updates are a success</span>
+                  </li>
+                  <li class="li-mobile" role="listitem">
+                    <img src="assets/images/icon-list.svg" alt="Check Icon" class="icon" style="margin-right: 10px;">
+                    <span class="text-mobile">And much more!</span>
+                  </li>
+                </ul>
+                <form>
+                  <div class="mb-3">
+                    <label for="emailInput" class="email-Input" style=" font-weight: 700; color: #242742;">Email address</label>
+                    <div class="error-msg email-Input" style=" font-weight: 700; font-size: 16px; display: none; text-align: right;">Valid email required</div>
+                    <input type="email" class="form-control mb-3" placeholder="email@company.com" style="max-width: 375px; height: 55px; border-radius: 7px;" id="emailInput">
+                    <div class="input-group-append mt-3">
+                      <button class="btn btn-subscribe" type="button" id="subscribe-btn" style="color: #FFFFFF; font-weight: 700;">Subscribe to monthly newsletter</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <div class="col-md-6 d-flex align-items-center justify-content-center">
+              <img role="banner" src="assets/images/illustration-sign-up-desktop.svg" class="card-img" alt="Illustration">
+            </div>
+            <div class="attribution"> Challenge by <a href="https://www.frontendmentor.io/challenges/newsletter-signup-form-5cf91bd49edda32581d28fd1" target="_blank">Frontend Mentor</a>. Coded by <a href="#">Alfian D</a>. </div>
+          </div>
+        </main>
+      </div>
+    </div>
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.2/js/bootstrap.bundle.min.js"></script>
+    <script>
+      document.getElementById('emailInput').addEventListener('blur', function() {
+        var emailInput = document.getElementById('emailInput');
+        var errorMsg = document.querySelector('.error-msg');
+        if (!validateEmail(emailInput.value)) {
+          emailInput.classList.add('is-invalid');
+          errorMsg.style.display = 'inline-block';
+        } else {
+          emailInput.classList.remove('is-invalid');
+          errorMsg.style.display = 'none';
+        }
+      });
+      document.getElementById('emailInput').addEventListener('input', function() {
+        var emailInput = document.getElementById('emailInput');
+        var errorMsg = document.querySelector('.error-msg');
+        if (emailInput.classList.contains('is-invalid')) {
+          emailInput.classList.remove('is-invalid');
+          errorMsg.style.display = 'none';
+        }
+      });
+      document.getElementById('subscribe-btn').addEventListener('click', function() {
+        var emailInput = document.getElementById('emailInput');
+        var errorMsg = document.querySelector('.error-msg');
+        if (!validateEmail(emailInput.value)) {
+          emailInput.classList.add('is-invalid');
+          errorMsg.style.display = 'inline-block';
+          alert('Invalid email address. Please enter a valid email.');
+          emailInput.focus();
+          return;
+        }
+        emailInput.classList.remove('is-invalid');
+        errorMsg.style.display = 'none';
+        // Tampilkan modal
+        var myModal = new bootstrap.Modal(document.getElementById('subscribeModal'));
+        myModal.show();
+      });
+
+      function validateEmail(email) {
+        var re = /\S+@\S+\.\S+/;
+        return re.test(email);
+      }
+    </script>
+  </body>
+</html>
